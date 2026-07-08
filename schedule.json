@@ -1,35 +1,5 @@
 [
   {
-    "title": "DevNet: Traffic-based app rewards (CIP-104) goes live",
-    "start": "2026-07-07",
-    "end": "2026-07-07",
-    "description": "",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Configuration Change",
-    "category": "general"
-  },
-  {
-    "title": "DevNet:  Topology Freeze 9am US Eastern / 1300 UTC",
-    "start": "2026-07-07",
-    "end": "2026-07-07",
-    "description": "",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Protocol Upgrades (LSU)",
-    "category": "general"
-  },
-  {
-    "title": "MainNet: Dry-run of traffic-based app rewards begins",
-    "start": "2026-07-07",
-    "end": "2026-07-07",
-    "description": "",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Configuration Change",
-    "category": "general"
-  },
-  {
     "title": "DevNet: LSU to adopt CantonBFT-based synchronizers",
     "start": "2026-07-08 14:00",
     "end": "2026-07-08 14:00",
@@ -617,6 +587,36 @@
     "status": "Approved",
     "network": "TestNet",
     "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "DevNet: Traffic-based app rewards (CIP-104) goes live",
+    "start": "2026-07-07",
+    "end": "2026-07-07",
+    "description": "",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Configuration Change",
+    "category": "general"
+  },
+  {
+    "title": "DevNet:  Topology Freeze 9am US Eastern / 1300 UTC",
+    "start": "2026-07-07",
+    "end": "2026-07-07",
+    "description": "",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Protocol Upgrades (LSU)",
+    "category": "general"
+  },
+  {
+    "title": "MainNet: Dry-run of traffic-based app rewards begins",
+    "start": "2026-07-07",
+    "end": "2026-07-07",
+    "description": "",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Configuration Change",
     "category": "general"
   }
 ]
