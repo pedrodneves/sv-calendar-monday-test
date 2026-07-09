@@ -3,7 +3,1195 @@
 <head>
   <meta charset="UTF-8" />
   <title>SV Operations Schedule</title>
+from pathlib import Path
+
+updated = r'''<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>SV Operations Schedule</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #03030a;
+      --panel: #10091f;
+      --purple: #7c4dff;
+      --purple-soft: #c99cff;
+      --green: #43d17a;
+      --text: #f7f4ff;
+      --muted: #cdb8ef;
+      --border: rgba(124,77,255,0.65);
+      --blue: #2563eb;
+      --yellow: #facc15;
+      --mainnet: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,77,255,0.22), transparent 35%),
+        linear-gradient(180deg, #03030a 0%, #070711 100%);
+      color: var(--text);
+      padding: 28px 20px;
+    }
+
+    .page { max-width: 1680px; margin: 0 auto; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    h1 { margin: 0; font-size: 38px; letter-spacing: -1px; }
+    .subtitle { margin-top: 8px; color: var(--muted); }
+
+    .source-pill {
+      border: 1px solid var(--green);
+      color: var(--green);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .controls {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto 1fr 220px 220px auto;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(27,16,54,0.95), rgba(8,8,18,0.95));
+    }
+
+    button, input, select {
+      background: #0c0a18;
+      border: 1px solid rgba(201,156,255,0.45);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+    }
+
+    button { cursor: pointer; }
+    button:hover { border-color: var(--purple-soft); }
+    input::placeholder { color: #9b8bb7; }
+
+    .view-button.active {
+      border-color: var(--purple-soft);
+      background: rgba(124,77,255,0.35);
+      box-shadow: 0 0 14px rgba(124,77,255,0.22);
+    }
+
+    .info-wrapper {
+      position: relative;
+    }
+
+    .info-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      padding: 0;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .info-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 54px;
+      width: 320px;
+      z-index: 20;
+      border: 1px solid rgba(201,156,255,0.45);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(27,16,54,0.98), rgba(8,8,18,0.98));
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+      padding: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .info-menu.visible { display: block; }
+
+    .info-menu h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .info-menu ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(27,16,54,0.95), rgba(8,8,18,0.95));
+      padding: 16px;
+      box-shadow: 0 0 28px rgba(124,77,255,0.12);
+    }
+
+    .mini-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .mini-title button {
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .mini-weekdays,
+    .mini-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .mini-weekday {
+      text-align: center;
+      color: var(--purple-soft);
+      font-weight: 900;
+      font-size: 10px;
+    }
+
+    .mini-day {
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+    }
+
+    .mini-day:hover {
+      border-color: rgba(201,156,255,0.45);
+      color: var(--text);
+    }
+
+    .mini-day.outside {
+      opacity: 0.35;
+    }
+
+    .mini-day.selected {
+      background: rgba(124,77,255,0.45);
+      color: #ffffff;
+      border-color: var(--purple-soft);
+    }
+
+    .mini-day.today {
+      box-shadow: 0 0 0 1px #f7f4ff inset;
+    }
+
+    .mini-day.has-events::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .legend {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+    }
+
+    .legend-dot.devnet { background: var(--blue); }
+    .legend-dot.testnet { background: var(--yellow); }
+    .legend-dot.mainnet { background: var(--mainnet); }
+    .legend-dot.other { background: var(--purple); }
+
+    .main-content {
+      min-width: 0;
+    }
+
+    .month-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 900;
+      margin: 20px 0 18px;
+    }
+
+    .weekdays,
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .weekdays { margin-bottom: 10px; }
+
+    .weekday {
+      color: var(--purple-soft);
+      font-weight: 900;
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+
+    .day {
+      height: 300px;
+      border: 1px solid rgba(124,77,255,0.7);
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at top left, rgba(124,77,255,0.18), transparent 45%),
+        linear-gradient(135deg, #1a0f34, #070812);
+      padding: 12px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .day.outside { opacity: 0.35; }
+
+    .day.today {
+      border-color: var(--purple-soft);
+      box-shadow: 0 0 18px rgba(201,156,255,0.25);
+    }
+
+    .day-number {
+      font-weight: 900;
+      color: var(--purple-soft);
+      margin-bottom: 10px;
+    }
+
+    .event {
+      border: 1px solid rgba(201,156,255,0.35);
+      border-left: 4px solid rgba(201,156,255,0.45);
+      border-radius: 12px;
+      background: rgba(124,77,255,0.22);
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .event.devnet {
+      background: rgba(37,99,235,0.28);
+      border-color: var(--blue);
+      border-left: 4px solid var(--blue);
+    }
+
+    .event.testnet {
+      background: rgba(250,204,21,0.16);
+      border-color: var(--yellow);
+      border-left: 4px solid var(--yellow);
+    }
+
+    .event.mainnet {
+      background: rgba(22,163,74,0.28);
+      border-color: var(--mainnet);
+      border-left: 4px solid var(--mainnet);
+    }
+
+    .title {
+      font-weight: 900;
+      text-decoration: underline;
+      margin-bottom: 6px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: 10px;
+      color: var(--muted);
+      border: 1px solid rgba(201,156,255,0.28);
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-weight: 700;
+      background: rgba(201,156,255,0.08);
+    }
+
+    .tag.allday {
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .tag.devnet {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #ffffff;
+    }
+
+    .tag.testnet {
+      background: #fde047;
+      border-color: #fde047;
+      color: #111827;
+    }
+
+    .tag.mainnet {
+      background: var(--mainnet);
+      border-color: var(--mainnet);
+      color: #ffffff;
+    }
+
+    .description { white-space: pre-wrap; }
+
+    .network-section {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(201,156,255,0.25);
+    }
+
+    .network-title {
+      color: var(--purple-soft);
+      font-weight: 900;
+      text-decoration: underline;
+      margin-bottom: 4px;
+    }
+
+    .single-day-layout {
+      display: grid;
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .single-day-card {
+      min-height: 420px;
+      height: auto;
+    }
+
+    .list-view {
+      display: grid;
+      gap: 14px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .list-day {
+      border: 1px solid rgba(124,77,255,0.7);
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at top left, rgba(124,77,255,0.18), transparent 45%),
+        linear-gradient(135deg, #1a0f34, #070812);
+      padding: 14px;
+    }
+
+    .list-day-title {
+      color: var(--purple-soft);
+      font-weight: 900;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(201,156,255,0.25);
+      padding-bottom: 8px;
+    }
+
+    .footer-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1350px) {
+      .controls {
+        grid-template-columns: repeat(4, auto) 1fr 220px 220px auto;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .mini-calendar-wrap {
+        max-width: 420px;
+      }
+
+      .controls {
+        grid-template-columns: repeat(3, auto) repeat(2, auto);
+      }
+
+      .controls input,
+      .controls select {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 900px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .controls input,
+      .controls select {
+        grid-column: span 2;
+      }
+      .day { height: 240px; }
+      .event { font-size: 11px; }
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 18px 12px; }
+      h1 { font-size: 28px; }
+      .source-pill { white-space: normal; }
+      .weekdays { display: none; }
+      .calendar { display: block; }
+
+      .controls { grid-template-columns: 1fr; }
+      .controls input,
+      .controls select {
+        grid-column: auto;
+      }
+
+      .info-menu {
+        right: auto;
+        left: 0;
+        width: min(320px, calc(100vw - 40px));
+      }
+
+      .day {
+        height: auto;
+        min-height: 120px;
+        margin-bottom: 14px;
+      }
+
+      .day.outside { display: none; }
+
+      .day-number {
+        font-size: 20px;
+        color: var(--purple-soft);
+        border-bottom: 1px solid rgba(201,156,255,0.25);
+        padding-bottom: 8px;
+      }
+
+      .event { font-size: 14px; }
+
+      .footer-meta {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>SV Operations Schedule</h1>
+        <div class="subtitle">Approved schedule items published from monday.com.</div>
+      </div>
+      <div class="source-pill">Source: monday.com approved items</div>
+    </header>
+
+    <section class="controls">
+      <button onclick="previousRange()">← Previous</button>
+      <button onclick="goToday()">Today</button>
+      <button onclick="nextRange()">Next →</button>
+
+      <button class="view-button active" id="monthViewButton" onclick="setViewMode('month')">Month</button>
+      <button class="view-button" id="weekViewButton" onclick="setViewMode('week')">Week</button>
+      <button class="view-button" id="dayViewButton" onclick="setViewMode('day')">Day</button>
+      <button class="view-button" id="listViewButton" onclick="setViewMode('list')">List</button>
+
+      <input id="search" placeholder="Search approved events..." />
+
+      <select id="networkFilter">
+        <option value="">All Networks</option>
+      </select>
+
+      <select id="typeFilter">
+        <option value="">All activity types</option>
+      </select>
+
+      <div class="info-wrapper">
+        <button class="info-button" onclick="toggleInfoMenu()" title="Calendar help">i</button>
+        <div class="info-menu" id="infoMenu">
+          <h3>Calendar help</h3>
+          <div>This calendar is generated from approved monday.com items.</div>
+          <ul>
+            <li><strong>Month</strong>: full monthly grid.</li>
+            <li><strong>Week</strong>: current Monday–Sunday week.</li>
+            <li><strong>Day</strong>: one day at a time.</li>
+            <li><strong>List</strong>: all matching events in the selected month.</li>
+            <li>Search, Network, and Type filters work together.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="mini-calendar-wrap">
+          <div class="mini-title">
+            <button onclick="changeMiniMonth(-1)">←</button>
+            <span id="miniMonthTitle"></span>
+            <button onclick="changeMiniMonth(1)">→</button>
+          </div>
+
+          <div class="mini-weekdays">
+            <div class="mini-weekday">M</div>
+            <div class="mini-weekday">T</div>
+            <div class="mini-weekday">W</div>
+            <div class="mini-weekday">T</div>
+            <div class="mini-weekday">F</div>
+            <div class="mini-weekday">S</div>
+            <div class="mini-weekday">S</div>
+          </div>
+
+          <div class="mini-calendar" id="miniCalendar"></div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-row"><span class="legend-dot devnet"></span>DevNet</div>
+          <div class="legend-row"><span class="legend-dot testnet"></span>TestNet</div>
+          <div class="legend-row"><span class="legend-dot mainnet"></span>MainNet</div>
+          <div class="legend-row"><span class="legend-dot other"></span>Other / Minimum Versions</div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="month-title" id="monthTitle"></div>
+
+        <div class="weekdays" id="weekdays">
+          <div class="weekday">MON</div>
+          <div class="weekday">TUE</div>
+          <div class="weekday">WED</div>
+          <div class="weekday">THU</div>
+          <div class="weekday">FRI</div>
+          <div class="weekday">SAT</div>
+          <div class="weekday">SUN</div>
+        </div>
+
+        <main class="calendar" id="calendar"></main>
+
+        <div class="footer-meta">
+          <div id="updated">↻ Loading schedule...</div>
+          <div>Only Approved monday items are shown</div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    let allEvents = [];
+    let currentDate = new Date();
+    let miniDate = new Date();
+    let viewMode = 'month';
+
+    async function loadSchedule() {
+      const response = await fetch('./schedule.json?cache=' + Date.now());
+      allEvents = await response.json();
+
+      populateNetworkFilter();
+      populateTypeFilter();
+
+      document.getElementById('updated').textContent =
+        '↻ Last loaded: ' + new Date().toLocaleString();
+
+      renderCalendar();
+      renderMiniCalendar();
+    }
+
+    function normalizeNetwork(network) {
+      const value = String(network || '').trim().toLowerCase();
+
+      if (value === 'dev net' || value === 'devnet') return 'DevNet';
+      if (value === 'testnet' || value === 'test net') return 'TestNet';
+      if (value === 'mainnet' || value === 'main net') return 'MainNet';
+      if (value === 'minimum versions' || value === 'minimum version') return 'Minimum Versions';
+
+      return String(network || '').trim();
+    }
+
+    function networkClass(network) {
+      if (network === 'DevNet') return 'devnet';
+      if (network === 'TestNet') return 'testnet';
+      if (network === 'MainNet') return 'mainnet';
+      return '';
+    }
+
+    function populateNetworkFilter() {
+      const select = document.getElementById('networkFilter');
+      const currentValue = select.value;
+
+      const orderedNetworks = [
+        'DevNet',
+        'TestNet',
+        'MainNet',
+        'Minimum Versions'
+      ];
+
+      select.innerHTML = '<option value="">All Networks</option>';
+
+      orderedNetworks.forEach(network => {
+        const exists = allEvents.some(event => normalizeNetwork(event.network) === network);
+
+        if (!exists) return;
+
+        const option = document.createElement('option');
+        option.value = network;
+        option.textContent = network;
+        select.appendChild(option);
+      });
+
+      select.value = currentValue;
+    }
+
+    function populateTypeFilter() {
+      const select = document.getElementById('typeFilter');
+      const currentValue = select.value;
+
+      select.innerHTML = '<option value="">All activity types</option>';
+
+      const types = [...new Set(
+        allEvents
+          .map(event => event.type)
+          .filter(Boolean)
+      )].sort();
+
+      types.forEach(type => {
+        const option = document.createElement('option');
+        option.value = type;
+        option.textContent = type;
+        select.appendChild(option);
+      });
+
+      select.value = currentValue;
+    }
+
+    function dateKey(date) {
+      return date.getFullYear() + '-' +
+        String(date.getMonth() + 1).padStart(2, '0') + '-' +
+        String(date.getDate()).padStart(2, '0');
+    }
+
+    function startOfWeek(date) {
+      const result = new Date(date);
+      const day = result.getDay();
+      const mondayOffset = day === 0 ? -6 : 1 - day;
+      result.setDate(result.getDate() + mondayOffset);
+      result.setHours(0, 0, 0, 0);
+      return result;
+    }
+
+    function addDays(date, days) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function getFilteredEvents() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const selectedNetwork = document.getElementById('networkFilter').value;
+      const selectedType = document.getElementById('typeFilter').value;
+
+      return allEvents.filter(event => {
+        const normalizedNetwork = normalizeNetwork(event.network);
+
+        const searchable = [
+          event.title,
+          event.description,
+          normalizedNetwork,
+          event.type,
+          event.category,
+          event.status
+        ].join(' ').toLowerCase();
+
+        return searchable.includes(search) &&
+          (!selectedNetwork || normalizedNetwork === selectedNetwork) &&
+          (!selectedType || event.type === selectedType);
+      });
+    }
+
+    function eventsForDate(key) {
+      return getFilteredEvents()
+        .filter(event => String(event.start || '') === key)
+        .sort((a, b) => {
+          const order = {
+            'DevNet': 1,
+            'TestNet': 2,
+            'MainNet': 3,
+            'Minimum Versions': 4
+          };
+
+          const aNetwork = normalizeNetwork(a.network);
+          const bNetwork = normalizeNetwork(b.network);
+
+          return (order[aNetwork] || 99) - (order[bNetwork] || 99);
+        });
+    }
+
+    function appendDescription(parent, description) {
+      const lines = String(description || '')
+        .split(/\r?\n|\r/)
+        .map(line => line.trim())
+        .filter(Boolean);
+
+      let section = null;
+
+      lines.forEach(line => {
+        const isNetwork =
+          /^DevNet:\s*$/i.test(line) ||
+          /^TestNet:\s*$/i.test(line) ||
+          /^MainNet:\s*$/i.test(line);
+
+        if (isNetwork) {
+          section = document.createElement('div');
+          section.className = 'network-section';
+
+          const title = document.createElement('div');
+          title.className = 'network-title';
+          title.textContent = line;
+
+          section.appendChild(title);
+          parent.appendChild(section);
+          return;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'description';
+        div.textContent = line;
+
+        if (section) {
+          section.appendChild(div);
+        } else {
+          parent.appendChild(div);
+        }
+      });
+    }
+
+    function renderEvent(event) {
+      const eventDiv = document.createElement('div');
+      const network = normalizeNetwork(event.network);
+
+      if (network === 'DevNet') {
+        eventDiv.className = 'event devnet';
+      } else if (network === 'TestNet') {
+        eventDiv.className = 'event testnet';
+      } else if (network === 'MainNet') {
+        eventDiv.className = 'event mainnet';
+      } else {
+        eventDiv.className = 'event';
+      }
+
+      const title = document.createElement('div');
+      title.className = 'title';
+      title.textContent = event.title || 'Untitled event';
+
+      const meta = document.createElement('div');
+      meta.className = 'meta-row';
+
+      const allDay = document.createElement('span');
+      allDay.className = 'tag allday';
+      allDay.textContent = 'All day';
+      meta.appendChild(allDay);
+
+      if (network) {
+        const tag = document.createElement('span');
+        const colorClass = networkClass(network);
+
+        tag.className = colorClass ? `tag ${colorClass}` : 'tag';
+        tag.textContent = network;
+        meta.appendChild(tag);
+      }
+
+      if (event.type) {
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = event.type;
+        meta.appendChild(tag);
+      }
+
+      eventDiv.appendChild(title);
+
+      if (meta.children.length) {
+        eventDiv.appendChild(meta);
+      }
+
+      if (event.description) {
+        appendDescription(eventDiv, event.description);
+      }
+
+      return eventDiv;
+    }
+
+    function renderDayCell(dayDate, month) {
+      const key = dateKey(dayDate);
+      const todayKey = dateKey(new Date());
+
+      const day = document.createElement('div');
+      day.className = 'day';
+
+      if (typeof month === 'number' && dayDate.getMonth() !== month) {
+        day.classList.add('outside');
+      }
+
+      if (key === todayKey) {
+        day.classList.add('today');
+      }
+
+      const dayLabel = window.innerWidth <= 700
+        ? dayDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+          })
+        : dayDate.getDate();
+
+      day.innerHTML = `<div class="day-number">${dayLabel}</div>`;
+
+      eventsForDate(key).forEach(event => {
+        day.appendChild(renderEvent(event));
+      });
+
+      return day;
+    }
+
+    function renderCalendar() {
+      const calendar = document.getElementById('calendar');
+      const weekdays = document.getElementById('weekdays');
+
+      calendar.innerHTML = '';
+      calendar.className = 'calendar';
+
+      updateViewButtons();
+
+      if (viewMode === 'month') {
+        renderMonthView(calendar, weekdays);
+      } else if (viewMode === 'week') {
+        renderWeekView(calendar, weekdays);
+      } else if (viewMode === 'day') {
+        renderDayView(calendar, weekdays);
+      } else {
+        renderListView(calendar, weekdays);
+      }
+
+      renderMiniCalendar();
+    }
+
+    function renderMonthView(calendar, weekdays) {
+      weekdays.style.display = '';
+      calendar.style.display = '';
+      calendar.className = 'calendar';
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      document.getElementById('monthTitle').textContent =
+        currentDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+      const firstDay = new Date(year, month, 1);
+
+      let mondayStartOffset = firstDay.getDay() - 1;
+      if (mondayStartOffset < 0) mondayStartOffset = 6;
+
+      const gridStart = new Date(firstDay);
+      gridStart.setDate(firstDay.getDate() - mondayStartOffset);
+
+      for (let i = 0; i < 35; i++) {
+        const dayDate = new Date(gridStart);
+        dayDate.setDate(gridStart.getDate() + i);
+        calendar.appendChild(renderDayCell(dayDate, month));
+      }
+    }
+
+    function renderWeekView(calendar, weekdays) {
+      weekdays.style.display = '';
+      calendar.style.display = '';
+      calendar.className = 'calendar';
+
+      const weekStart = startOfWeek(currentDate);
+      const weekEnd = addDays(weekStart, 6);
+
+      document.getElementById('monthTitle').textContent =
+        weekStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) +
+        ' – ' +
+        weekEnd.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+      for (let i = 0; i < 7; i++) {
+        calendar.appendChild(renderDayCell(addDays(weekStart, i)));
+      }
+    }
+
+    function renderDayView(calendar, weekdays) {
+      weekdays.style.display = 'none';
+      calendar.className = 'single-day-layout';
+
+      document.getElementById('monthTitle').textContent =
+        currentDate.toLocaleDateString(undefined, {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+
+      const day = renderDayCell(currentDate);
+      day.classList.add('single-day-card');
+      calendar.appendChild(day);
+    }
+
+    function renderListView(calendar, weekdays) {
+      weekdays.style.display = 'none';
+      calendar.className = 'list-view';
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+
+      document.getElementById('monthTitle').textContent =
+        'List · ' + currentDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+
+      for (let d = new Date(firstDay); d <= lastDay; d.setDate(d.getDate() + 1)) {
+        const key = dateKey(d);
+        const dayEvents = eventsForDate(key);
+
+        if (!dayEvents.length) continue;
+
+        const group = document.createElement('section');
+        group.className = 'list-day';
+
+        const heading = document.createElement('div');
+        heading.className = 'list-day-title';
+        heading.textContent = d.toLocaleDateString(undefined, {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+
+        group.appendChild(heading);
+
+        dayEvents.forEach(event => {
+          group.appendChild(renderEvent(event));
+        });
+
+        calendar.appendChild(group);
+      }
+
+      if (!calendar.children.length) {
+        const empty = document.createElement('section');
+        empty.className = 'list-day';
+        empty.textContent = 'No approved events match the current filters.';
+        calendar.appendChild(empty);
+      }
+    }
+
+    function renderMiniCalendar() {
+      const mini = document.getElementById('miniCalendar');
+      const title = document.getElementById('miniMonthTitle');
+
+      if (!mini || !title) return;
+
+      mini.innerHTML = '';
+
+      const year = miniDate.getFullYear();
+      const month = miniDate.getMonth();
+
+      title.textContent = miniDate.toLocaleDateString(undefined, {
+        month: 'short',
+        year: 'numeric'
+      });
+
+      const firstDay = new Date(year, month, 1);
+
+      let mondayStartOffset = firstDay.getDay() - 1;
+      if (mondayStartOffset < 0) mondayStartOffset = 6;
+
+      const gridStart = new Date(firstDay);
+      gridStart.setDate(firstDay.getDate() - mondayStartOffset);
+
+      const filtered = getFilteredEvents();
+      const eventDates = new Set(filtered.map(event => String(event.start || '')));
+      const todayKey = dateKey(new Date());
+      const selectedKey = dateKey(currentDate);
+
+      for (let i = 0; i < 42; i++) {
+        const dayDate = new Date(gridStart);
+        dayDate.setDate(gridStart.getDate() + i);
+
+        const key = dateKey(dayDate);
+        const cell = document.createElement('button');
+        cell.className = 'mini-day';
+        cell.textContent = dayDate.getDate();
+
+        if (dayDate.getMonth() !== month) {
+          cell.classList.add('outside');
+        }
+
+        if (key === todayKey) {
+          cell.classList.add('today');
+        }
+
+        if (key === selectedKey) {
+          cell.classList.add('selected');
+        }
+
+        if (eventDates.has(key)) {
+          cell.classList.add('has-events');
+        }
+
+        cell.onclick = () => {
+          currentDate = new Date(dayDate);
+          miniDate = new Date(dayDate);
+          if (viewMode === 'list') {
+            viewMode = 'day';
+          }
+          renderCalendar();
+        };
+
+        mini.appendChild(cell);
+      }
+    }
+
+    function changeMiniMonth(delta) {
+      miniDate.setMonth(miniDate.getMonth() + delta);
+      renderMiniCalendar();
+    }
+
+    function previousRange() {
+      if (viewMode === 'month' || viewMode === 'list') {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        miniDate = new Date(currentDate);
+      } else if (viewMode === 'week') {
+        currentDate.setDate(currentDate.getDate() - 7);
+        miniDate = new Date(currentDate);
+      } else {
+        currentDate.setDate(currentDate.getDate() - 1);
+        miniDate = new Date(currentDate);
+      }
+
+      renderCalendar();
+    }
+
+    function nextRange() {
+      if (viewMode === 'month' || viewMode === 'list') {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        miniDate = new Date(currentDate);
+      } else if (viewMode === 'week') {
+        currentDate.setDate(currentDate.getDate() + 7);
+        miniDate = new Date(currentDate);
+      } else {
+        currentDate.setDate(currentDate.getDate() + 1);
+        miniDate = new Date(currentDate);
+      }
+
+      renderCalendar();
+    }
+
+    function previousMonth() {
+      previousRange();
+    }
+
+    function nextMonth() {
+      nextRange();
+    }
+
+    function goToday() {
+      currentDate = new Date();
+      miniDate = new Date();
+      renderCalendar();
+    }
+
+    function setViewMode(mode) {
+      viewMode = mode;
+      renderCalendar();
+    }
+
+    function updateViewButtons() {
+      ['month', 'week', 'day', 'list'].forEach(mode => {
+        const button = document.getElementById(mode + 'ViewButton');
+        if (!button) return;
+        button.classList.toggle('active', viewMode === mode);
+      });
+    }
+
+    function toggleInfoMenu() {
+      document.getElementById('infoMenu').classList.toggle('visible');
+    }
+
+    document.addEventListener('click', event => {
+      const menu = document.getElementById('infoMenu');
+      const wrapper = document.querySelector('.info-wrapper');
+
+      if (!menu || !wrapper) return;
+      if (!wrapper.contains(event.target)) {
+        menu.classList.remove('visible');
+      }
+    });
+
+    document.getElementById('search').addEventListener('input', () => {
+      renderCalendar();
+      renderMiniCalendar();
+    });
+
+    document.getElementById('networkFilter').addEventListener('change', () => {
+      renderCalendar();
+      renderMiniCalendar();
+    });
+
+    document.getElementById('typeFilter').addEventListener('change', () => {
+      renderCalendar();
+      renderMiniCalendar();
+    });
+
+    loadSchedule();
+  </script>
+</body>
+</html>
+'''
+
+out = Path('/mnt/data/index_with_sidebar_calendar.html')
+out.write_text(updated, encoding='utf-8')
+print(str(out))
 
   <style>
     :root {
