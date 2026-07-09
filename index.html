@@ -3,13 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>SV Operations Schedule</title>
-from pathlib import Path
-
-updated = r'''<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>SV Operations Schedule</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -39,7 +32,7 @@ updated = r'''<!DOCTYPE html>
       padding: 28px 20px;
     }
 
-    .page { max-width: 1680px; margin: 0 auto; }
+    .page { max-width: 1500px; margin: 0 auto; }
 
     header {
       display: flex;
@@ -63,8 +56,8 @@ updated = r'''<!DOCTYPE html>
 
     .controls {
       position: relative;
-      display: grid;
-      grid-template-columns: auto auto auto auto auto auto auto 1fr 220px 220px auto;
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 24px;
       padding: 18px;
@@ -86,171 +79,41 @@ updated = r'''<!DOCTYPE html>
     button:hover { border-color: var(--purple-soft); }
     input::placeholder { color: #9b8bb7; }
 
+    .controls input {
+      flex: 1 1 280px;
+      min-width: 240px;
+    }
+
+    .controls select {
+      flex: 0 0 220px;
+    }
+
     .view-button.active {
       border-color: var(--purple-soft);
       background: rgba(124,77,255,0.35);
       box-shadow: 0 0 14px rgba(124,77,255,0.22);
     }
 
-    .info-wrapper {
-      position: relative;
-    }
-
     .info-button {
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      padding: 0;
       font-weight: 900;
-      font-size: 18px;
+      padding-left: 0;
+      padding-right: 0;
     }
 
-    .info-menu {
+    .help-panel {
       display: none;
-      position: absolute;
-      right: 0;
-      top: 54px;
-      width: 320px;
-      z-index: 20;
-      border: 1px solid rgba(201,156,255,0.45);
+      margin-top: -12px;
+      margin-bottom: 24px;
+      padding: 14px 16px;
+      border: 1px solid rgba(201,156,255,0.35);
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(27,16,54,0.98), rgba(8,8,18,0.98));
-      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
-      padding: 14px;
+      background: rgba(124,77,255,0.14);
       color: var(--muted);
       font-size: 14px;
       line-height: 1.45;
     }
 
-    .info-menu.visible { display: block; }
-
-    .info-menu h3 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-size: 16px;
-    }
-
-    .info-menu ul {
-      margin: 8px 0 0;
-      padding-left: 18px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(27,16,54,0.95), rgba(8,8,18,0.95));
-      padding: 16px;
-      box-shadow: 0 0 28px rgba(124,77,255,0.12);
-    }
-
-    .mini-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      color: var(--text);
-      font-weight: 900;
-    }
-
-    .mini-title button {
-      padding: 6px 8px;
-      font-size: 12px;
-      border-radius: 8px;
-    }
-
-    .mini-weekdays,
-    .mini-calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-    }
-
-    .mini-weekday {
-      text-align: center;
-      color: var(--purple-soft);
-      font-weight: 900;
-      font-size: 10px;
-    }
-
-    .mini-day {
-      height: 28px;
-      display: grid;
-      place-items: center;
-      border-radius: 7px;
-      color: var(--muted);
-      font-size: 12px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      position: relative;
-    }
-
-    .mini-day:hover {
-      border-color: rgba(201,156,255,0.45);
-      color: var(--text);
-    }
-
-    .mini-day.outside {
-      opacity: 0.35;
-    }
-
-    .mini-day.selected {
-      background: rgba(124,77,255,0.45);
-      color: #ffffff;
-      border-color: var(--purple-soft);
-    }
-
-    .mini-day.today {
-      box-shadow: 0 0 0 1px #f7f4ff inset;
-    }
-
-    .mini-day.has-events::after {
-      content: '';
-      position: absolute;
-      bottom: 3px;
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: var(--green);
-    }
-
-    .legend {
-      margin-top: 18px;
-      display: grid;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .legend-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-    }
-
-    .legend-dot.devnet { background: var(--blue); }
-    .legend-dot.testnet { background: var(--yellow); }
-    .legend-dot.mainnet { background: var(--mainnet); }
-    .legend-dot.other { background: var(--purple); }
-
-    .main-content {
-      min-width: 0;
-    }
+    .help-panel.visible { display: block; }
 
     .month-title {
       text-align: center;
@@ -436,42 +299,185 @@ updated = r'''<!DOCTYPE html>
       font-size: 14px;
     }
 
-    @media (max-width: 1350px) {
+    .info-wrapper {
+      position: relative;
+    }
+
+    .info-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      padding: 0;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .info-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 54px;
+      width: 320px;
+      z-index: 30;
+      border: 1px solid rgba(201,156,255,0.45);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(27,16,54,0.98), rgba(8,8,18,0.98));
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+      padding: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .info-menu.visible { display: block; }
+
+    .info-menu h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .info-menu ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(27,16,54,0.95), rgba(8,8,18,0.95));
+      padding: 16px;
+      box-shadow: 0 0 28px rgba(124,77,255,0.12);
+    }
+
+    .mini-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    .mini-title button {
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .mini-weekdays,
+    .mini-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .mini-weekday {
+      text-align: center;
+      color: var(--purple-soft);
+      font-weight: 900;
+      font-size: 10px;
+    }
+
+    .mini-day {
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+      padding: 0;
+    }
+
+    .mini-day:hover {
+      border-color: rgba(201,156,255,0.45);
+      color: var(--text);
+    }
+
+    .mini-day.outside { opacity: 0.35; }
+
+    .mini-day.selected {
+      background: rgba(124,77,255,0.45);
+      color: #ffffff;
+      border-color: var(--purple-soft);
+    }
+
+    .mini-day.today {
+      box-shadow: 0 0 0 1px #f7f4ff inset;
+    }
+
+    .mini-day.has-events::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .legend {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+    }
+
+    .legend-dot.devnet { background: #2563eb; }
+    .legend-dot.testnet { background: #facc15; }
+    .legend-dot.mainnet { background: #16a34a; }
+    .legend-dot.other { background: var(--purple); }
+
+    .main-content {
+      min-width: 0;
+    }
+
+
+    @media (max-width: 1200px) {
       .controls {
-        grid-template-columns: repeat(4, auto) 1fr 220px 220px auto;
+        grid-template-columns: repeat(3, auto) repeat(3, auto);
+      }
+
+      .controls input,
+      .controls select {
+        grid-column: span 2;
       }
     }
 
     @media (max-width: 1100px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: static;
-      }
-
-      .mini-calendar-wrap {
-        max-width: 420px;
-      }
-
-      .controls {
-        grid-template-columns: repeat(3, auto) repeat(2, auto);
-      }
-
-      .controls input,
-      .controls select {
-        grid-column: span 2;
-      }
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .mini-calendar-wrap { max-width: 360px; }
     }
 
     @media (max-width: 900px) {
       header { flex-direction: column; align-items: flex-start; }
-      .controls { grid-template-columns: 1fr 1fr; }
-      .controls input,
-      .controls select {
-        grid-column: span 2;
-      }
       .day { height: 240px; }
       .event { font-size: 11px; }
     }
@@ -483,17 +489,6 @@ updated = r'''<!DOCTYPE html>
       .weekdays { display: none; }
       .calendar { display: block; }
 
-      .controls { grid-template-columns: 1fr; }
-      .controls input,
-      .controls select {
-        grid-column: auto;
-      }
-
-      .info-menu {
-        right: auto;
-        left: 0;
-        width: min(320px, calc(100vw - 40px));
-      }
 
       .day {
         height: auto;
@@ -567,6 +562,21 @@ updated = r'''<!DOCTYPE html>
     </section>
 
     <div class="layout">
+      <main class="main-content">
+        <div class="month-title" id="monthTitle"></div>
+
+        <div class="weekdays" id="weekdays">
+          <div class="weekday">MON</div>
+          <div class="weekday">TUE</div>
+          <div class="weekday">WED</div>
+          <div class="weekday">THU</div>
+          <div class="weekday">FRI</div>
+          <div class="weekday">SAT</div>
+          <div class="weekday">SUN</div>
+        </div>
+
+        <div class="calendar" id="calendar"></div>
+
       <aside class="sidebar">
         <div class="mini-calendar-wrap">
           <div class="mini-title">
@@ -595,27 +605,6 @@ updated = r'''<!DOCTYPE html>
           <div class="legend-row"><span class="legend-dot other"></span>Other / Minimum Versions</div>
         </div>
       </aside>
-
-      <main class="main-content">
-        <div class="month-title" id="monthTitle"></div>
-
-        <div class="weekdays" id="weekdays">
-          <div class="weekday">MON</div>
-          <div class="weekday">TUE</div>
-          <div class="weekday">WED</div>
-          <div class="weekday">THU</div>
-          <div class="weekday">FRI</div>
-          <div class="weekday">SAT</div>
-          <div class="weekday">SUN</div>
-        </div>
-
-        <main class="calendar" id="calendar"></main>
-
-        <div class="footer-meta">
-          <div id="updated">↻ Loading schedule...</div>
-          <div>Only Approved monday items are shown</div>
-        </div>
-      </main>
     </div>
   </div>
 
@@ -725,6 +714,10 @@ updated = r'''<!DOCTYPE html>
       const result = new Date(date);
       result.setDate(result.getDate() + days);
       return result;
+    }
+
+    function sameDay(a, b) {
+      return dateKey(a) === dateKey(b);
     }
 
     function getFilteredEvents() {
@@ -1025,6 +1018,8 @@ updated = r'''<!DOCTYPE html>
       }
     }
 
+
+
     function renderMiniCalendar() {
       const mini = document.getElementById('miniCalendar');
       const title = document.getElementById('miniMonthTitle');
@@ -1082,9 +1077,7 @@ updated = r'''<!DOCTYPE html>
         cell.onclick = () => {
           currentDate = new Date(dayDate);
           miniDate = new Date(dayDate);
-          if (viewMode === 'list') {
-            viewMode = 'day';
-          }
+          if (viewMode === 'list') viewMode = 'day';
           renderCalendar();
         };
 
@@ -1168,598 +1161,9 @@ updated = r'''<!DOCTYPE html>
       }
     });
 
-    document.getElementById('search').addEventListener('input', () => {
-      renderCalendar();
-      renderMiniCalendar();
-    });
-
-    document.getElementById('networkFilter').addEventListener('change', () => {
-      renderCalendar();
-      renderMiniCalendar();
-    });
-
-    document.getElementById('typeFilter').addEventListener('change', () => {
-      renderCalendar();
-      renderMiniCalendar();
-    });
-
-    loadSchedule();
-  </script>
-</body>
-</html>
-'''
-
-out = Path('/mnt/data/index_with_sidebar_calendar.html')
-out.write_text(updated, encoding='utf-8')
-print(str(out))
-
-  <style>
-    :root {
-      --bg: #03030a;
-      --panel: #10091f;
-      --purple: #7c4dff;
-      --purple-soft: #c99cff;
-      --green: #43d17a;
-      --text: #f7f4ff;
-      --muted: #cdb8ef;
-      --border: rgba(124,77,255,0.65);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(124,77,255,0.22), transparent 35%),
-        linear-gradient(180deg, #03030a 0%, #070711 100%);
-      color: var(--text);
-      padding: 28px 20px;
-    }
-
-    .page { max-width: 1500px; margin: 0 auto; }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    h1 { margin: 0; font-size: 38px; letter-spacing: -1px; }
-    .subtitle { margin-top: 8px; color: var(--muted); }
-
-    .source-pill {
-      border: 1px solid var(--green);
-      color: var(--green);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: auto auto auto 1fr 220px 220px;
-      gap: 10px;
-      margin-bottom: 24px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(27,16,54,0.95), rgba(8,8,18,0.95));
-    }
-
-    button, input, select {
-      background: #0c0a18;
-      border: 1px solid rgba(201,156,255,0.45);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 15px;
-    }
-
-    button { cursor: pointer; }
-    input::placeholder { color: #9b8bb7; }
-
-    .month-title {
-      text-align: center;
-      font-size: 30px;
-      font-weight: 900;
-      margin: 20px 0 18px;
-    }
-
-    .weekdays,
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .weekdays { margin-bottom: 10px; }
-
-    .weekday {
-      color: var(--purple-soft);
-      font-weight: 900;
-      text-align: center;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-    }
-
-    .day {
-      height: 300px;
-      border: 1px solid rgba(124,77,255,0.7);
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at top left, rgba(124,77,255,0.18), transparent 45%),
-        linear-gradient(135deg, #1a0f34, #070812);
-      padding: 12px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .day.outside { opacity: 0.35; }
-
-    .day.today {
-      border-color: var(--purple-soft);
-      box-shadow: 0 0 18px rgba(201,156,255,0.25);
-    }
-
-    .day-number {
-      font-weight: 900;
-      color: var(--purple-soft);
-      margin-bottom: 10px;
-    }
-
-    .event {
-      border: 1px solid rgba(201,156,255,0.35);
-      border-left: 4px solid rgba(201,156,255,0.45);
-      border-radius: 12px;
-      background: rgba(124,77,255,0.22);
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .event.devnet {
-      background: rgba(37,99,235,0.28);
-      border-color: #2563eb;
-      border-left: 4px solid #2563eb;
-    }
-
-    .event.testnet {
-      background: rgba(250, 204, 21, 0.16);
-      border-color: #facc15;
-        border-left: 4px solid #facc15;
-    }
-
-    .event.mainnet {
-      background: rgba(22,163,74,0.28);
-      border-color: #16a34a;
-      border-left: 4px solid #16a34a;
-    }
-
-    .title {
-      font-weight: 900;
-      text-decoration: underline;
-      margin-bottom: 6px;
-    }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .tag {
-      font-size: 10px;
-      color: var(--muted);
-      border: 1px solid rgba(201,156,255,0.28);
-      border-radius: 999px;
-      padding: 3px 7px;
-      font-weight: 700;
-      background: rgba(201,156,255,0.08);
-    }
-
-    .tag.devnet {
-      background: #2563eb;
-      border-color: #2563eb;
-      color: #ffffff;
-    }
-
-    .tag.testnet {
-      background: #fde047;
-      border-color: #fde047;
-      color: #111827;
-    }
-
-    .tag.mainnet {
-      background: #16a34a;
-      border-color: #16a34a;
-      color: #ffffff;
-    }
-
-    .description { white-space: pre-wrap; }
-
-    .network-section {
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(201,156,255,0.25);
-    }
-
-    .network-title {
-      color: var(--purple-soft);
-      font-weight: 900;
-      text-decoration: underline;
-      margin-bottom: 4px;
-    }
-
-    .footer-meta {
-      display: flex;
-      justify-content: space-between;
-      color: var(--muted);
-      margin-top: 18px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 900px) {
-      header { flex-direction: column; align-items: flex-start; }
-      .controls { grid-template-columns: 1fr; }
-      .day { height: 240px; }
-      .event { font-size: 11px; }
-    }
-
-    @media (max-width: 700px) {
-      body { padding: 18px 12px; }
-      h1 { font-size: 28px; }
-      .weekdays { display: none; }
-      .calendar { display: block; }
-
-      .day {
-        height: auto;
-        min-height: 120px;
-        margin-bottom: 14px;
-      }
-
-      .day.outside { display: none; }
-
-      .day-number {
-        font-size: 20px;
-        color: var(--purple-soft);
-        border-bottom: 1px solid rgba(201,156,255,0.25);
-        padding-bottom: 8px;
-      }
-
-      .event { font-size: 14px; }
-
-      .footer-meta {
-        flex-direction: column;
-        gap: 8px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="page">
-    <header>
-      <div>
-        <h1>SV Operations Schedule</h1>
-        <div class="subtitle">Approved schedule items published from monday.com.</div>
-      </div>
-      <div class="source-pill">Source: monday.com approved items</div>
-    </header>
-
-    <section class="controls">
-      <button onclick="previousMonth()">← Previous</button>
-      <button onclick="goToday()">Today</button>
-      <button onclick="nextMonth()">Next →</button>
-      <input id="search" placeholder="Search approved events..." />
-
-      <select id="networkFilter">
-        <option value="">All Networks</option>
-      </select>
-
-      <select id="typeFilter">
-        <option value="">All activity types</option>
-      </select>
-    </section>
-
-    <div class="month-title" id="monthTitle"></div>
-
-    <div class="weekdays">
-      <div class="weekday">MON</div>
-      <div class="weekday">TUE</div>
-      <div class="weekday">WED</div>
-      <div class="weekday">THU</div>
-      <div class="weekday">FRI</div>
-      <div class="weekday">SAT</div>
-      <div class="weekday">SUN</div>
-    </div>
-
-    <main class="calendar" id="calendar"></main>
-
-    <div class="footer-meta">
-      <div id="updated">↻ Loading schedule...</div>
-      <div>Only Approved monday items are shown</div>
-    </div>
-  </div>
-
-  <script>
-    let allEvents = [];
-    let currentDate = new Date();
-
-    async function loadSchedule() {
-      const response = await fetch('./schedule.json?cache=' + Date.now());
-      allEvents = await response.json();
-
-      populateNetworkFilter();
-      populateTypeFilter();
-
-      document.getElementById('updated').textContent =
-        '↻ Last loaded: ' + new Date().toLocaleString();
-
-      renderCalendar();
-    }
-
-    function normalizeNetwork(network) {
-      const value = String(network || '').trim().toLowerCase();
-
-      if (value === 'dev net' || value === 'devnet') return 'DevNet';
-      if (value === 'testnet' || value === 'test net') return 'TestNet';
-      if (value === 'mainnet' || value === 'main net') return 'MainNet';
-      if (value === 'minimum versions' || value === 'minimum version') return 'Minimum Versions';
-
-      return String(network || '').trim();
-    }
-
-    function networkClass(network) {
-      if (network === 'DevNet') return 'devnet';
-      if (network === 'TestNet') return 'testnet';
-      if (network === 'MainNet') return 'mainnet';
-      return '';
-    }
-
-    function populateNetworkFilter() {
-      const select = document.getElementById('networkFilter');
-      const currentValue = select.value;
-
-      const orderedNetworks = [
-        'DevNet',
-        'TestNet',
-        'MainNet',
-        'Minimum Versions'
-      ];
-
-      select.innerHTML = '<option value="">All Networks</option>';
-
-      orderedNetworks.forEach(network => {
-        const exists = allEvents.some(event => normalizeNetwork(event.network) === network);
-
-        if (!exists) return;
-
-        const option = document.createElement('option');
-        option.value = network;
-        option.textContent = network;
-        select.appendChild(option);
-      });
-
-      select.value = currentValue;
-    }
-
-    function populateTypeFilter() {
-      const select = document.getElementById('typeFilter');
-      const currentValue = select.value;
-
-      select.innerHTML = '<option value="">All activity types</option>';
-
-      const types = [...new Set(
-        allEvents
-          .map(event => event.type)
-          .filter(Boolean)
-      )].sort();
-
-      types.forEach(type => {
-        const option = document.createElement('option');
-        option.value = type;
-        option.textContent = type;
-        select.appendChild(option);
-      });
-
-      select.value = currentValue;
-    }
-
-    function dateKey(date) {
-      return date.getFullYear() + '-' +
-        String(date.getMonth() + 1).padStart(2, '0') + '-' +
-        String(date.getDate()).padStart(2, '0');
-    }
-
-    function appendDescription(parent, description) {
-      const lines = String(description || '')
-        .split(/\r?\n|\r/)
-        .map(line => line.trim())
-        .filter(Boolean);
-
-      let section = null;
-
-      lines.forEach(line => {
-        const isNetwork =
-          /^DevNet:\s*$/i.test(line) ||
-          /^TestNet:\s*$/i.test(line) ||
-          /^MainNet:\s*$/i.test(line);
-
-        if (isNetwork) {
-          section = document.createElement('div');
-          section.className = 'network-section';
-
-          const title = document.createElement('div');
-          title.className = 'network-title';
-          title.textContent = line;
-
-          section.appendChild(title);
-          parent.appendChild(section);
-          return;
-        }
-
-        const div = document.createElement('div');
-        div.className = 'description';
-        div.textContent = line;
-
-        if (section) {
-          section.appendChild(div);
-        } else {
-          parent.appendChild(div);
-        }
-      });
-    }
-
-    function renderEvent(event) {
-      const eventDiv = document.createElement('div');
-      const network = normalizeNetwork(event.network);
-
-      if (network === 'DevNet') {
-        eventDiv.className = 'event devnet';
-      } else if (network === 'TestNet') {
-        eventDiv.className = 'event testnet';
-      } else if (network === 'MainNet') {
-        eventDiv.className = 'event mainnet';
-      } else {
-        eventDiv.className = 'event';
-      }
-
-      const title = document.createElement('div');
-      title.className = 'title';
-      title.textContent = event.title || 'Untitled event';
-
-      const meta = document.createElement('div');
-      meta.className = 'meta-row';
-
-      if (network) {
-        const tag = document.createElement('span');
-        const colorClass = networkClass(network);
-
-        tag.className = colorClass ? `tag ${colorClass}` : 'tag';
-        tag.textContent = network;
-        meta.appendChild(tag);
-      }
-
-      if (event.type) {
-        const tag = document.createElement('span');
-        tag.className = 'tag';
-        tag.textContent = event.type;
-        meta.appendChild(tag);
-      }
-
-      eventDiv.appendChild(title);
-
-      if (meta.children.length) {
-        eventDiv.appendChild(meta);
-      }
-
-      if (event.description) {
-        appendDescription(eventDiv, event.description);
-      }
-
-      return eventDiv;
-    }
-
-    function renderCalendar() {
-      const calendar = document.getElementById('calendar');
-      const search = document.getElementById('search').value.toLowerCase();
-      const selectedNetwork = document.getElementById('networkFilter').value;
-      const selectedType = document.getElementById('typeFilter').value;
-
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth();
-
-      document.getElementById('monthTitle').textContent =
-        currentDate.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-
-      const firstDay = new Date(year, month, 1);
-
-      let mondayStartOffset = firstDay.getDay() - 1;
-      if (mondayStartOffset < 0) mondayStartOffset = 6;
-
-      const gridStart = new Date(firstDay);
-      gridStart.setDate(firstDay.getDate() - mondayStartOffset);
-
-      calendar.innerHTML = '';
-
-      for (let i = 0; i < 35; i++) {
-        const dayDate = new Date(gridStart);
-        dayDate.setDate(gridStart.getDate() + i);
-
-        const key = dateKey(dayDate);
-        const todayKey = dateKey(new Date());
-
-        const dayEvents = allEvents.filter(event => {
-          const normalizedNetwork = normalizeNetwork(event.network);
-
-          const searchable = [
-            event.title,
-            event.description,
-            normalizedNetwork,
-            event.type,
-            event.category,
-            event.status
-          ].join(' ').toLowerCase();
-
-          return String(event.start || '') === key &&
-            searchable.includes(search) &&
-            (!selectedNetwork || normalizedNetwork === selectedNetwork) &&
-            (!selectedType || event.type === selectedType);
-        });
-
-        const day = document.createElement('div');
-        day.className = 'day';
-
-        if (dayDate.getMonth() !== month) {
-          day.classList.add('outside');
-        }
-
-        if (key === todayKey) {
-          day.classList.add('today');
-        }
-
-        const dayLabel = window.innerWidth <= 700
-          ? dayDate.toLocaleDateString('en-US', {
-              weekday: 'long',
-              month: 'long',
-              day: 'numeric'
-            })
-          : dayDate.getDate();
-
-        day.innerHTML = `<div class="day-number">${dayLabel}</div>`;
-
-        dayEvents.forEach(event => {
-          day.appendChild(renderEvent(event));
-        });
-
-        calendar.appendChild(day);
-      }
-    }
-
-    function previousMonth() {
-      currentDate.setMonth(currentDate.getMonth() - 1);
-      renderCalendar();
-    }
-
-    function nextMonth() {
-      currentDate.setMonth(currentDate.getMonth() + 1);
-      renderCalendar();
-    }
-
-    function goToday() {
-      currentDate = new Date();
-      renderCalendar();
-    }
-
-    document.getElementById('search').addEventListener('input', renderCalendar);
-    document.getElementById('networkFilter').addEventListener('change', renderCalendar);
-    document.getElementById('typeFilter').addEventListener('change', renderCalendar);
+    document.getElementById('search').addEventListener('input', () => { renderCalendar(); renderMiniCalendar(); });
+    document.getElementById('networkFilter').addEventListener('change', () => { renderCalendar(); renderMiniCalendar(); });
+    document.getElementById('typeFilter').addEventListener('change', () => { renderCalendar(); renderMiniCalendar(); });
 
     loadSchedule();
   </script>
