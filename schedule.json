@@ -216,7 +216,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Splice Daml Model Effectivity",
     "category": "general"
   },
   {
@@ -230,13 +230,33 @@
     "category": "general"
   },
   {
-    "title": "Minimum Splice Versions for Validators: DevNet 0.6.11, TestNet 0.6.11, MainNet 0.6.11",
+    "title": "DevNet Minimum Splice Versions for Validators",
     "start": "2026-07-28",
     "end": "2026-07-28",
-    "description": "",
+    "description": "DevNet 0.6.11",
     "status": "Approved",
-    "network": "All",
-    "type": "",
+    "network": "DevNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "TestNet Minimum Splice Versions for Validators",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "TestNet 0.6.11",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "MainNet Minimum Splice Versions for Validators",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "MainNet 0.6.11",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Minimum Splice Versions",
     "category": "general"
   },
   {
@@ -276,7 +296,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Configuration Change",
     "category": "general"
   },
   {
@@ -316,7 +336,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -326,7 +346,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Configuration Change",
     "category": "general"
   },
   {
@@ -336,7 +356,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Configuration Change",
     "category": "general"
   },
   {
@@ -406,7 +426,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Configuration Change",
     "category": "general"
   },
   {
@@ -566,7 +586,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -576,7 +596,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -586,7 +606,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -656,7 +676,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -666,7 +686,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -676,7 +696,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -716,7 +736,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -726,7 +746,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -736,7 +756,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -746,7 +766,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -756,7 +776,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -766,7 +786,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -826,7 +846,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -836,7 +856,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -846,7 +866,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
