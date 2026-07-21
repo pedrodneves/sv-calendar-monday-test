@@ -1,25 +1,5 @@
 [
   {
-    "title": "TestNet - Minimum Splice Versions for Validators",
-    "start": "2026-07-20",
-    "end": "2026-07-20",
-    "description": "TestNet: 0.6.9 (To Be Confirmed)",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
-    "title": "MainNet - Minimum Splice Versions for Validators",
-    "start": "2026-07-20",
-    "end": "2026-07-20",
-    "description": "MainNet: 0.6.7",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
     "title": "TestNet: Traffic-based app rewards (CIP-104) goes live",
     "start": "2026-07-21",
     "end": "2026-07-21",
@@ -1417,6 +1397,26 @@
     "status": "Approved",
     "network": "DevNet",
     "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "TestNet - Minimum Splice Versions for Validators",
+    "start": "2026-07-20",
+    "end": "2026-07-20",
+    "description": "TestNet: 0.6.9 (To Be Confirmed)",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "MainNet - Minimum Splice Versions for Validators",
+    "start": "2026-07-20",
+    "end": "2026-07-20",
+    "description": "MainNet: 0.6.7",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Minimum Splice Versions",
     "category": "general"
   }
 ]
