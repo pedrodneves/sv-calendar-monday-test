@@ -1,95 +1,5 @@
 [
   {
-    "title": "TestNet: Traffic-based app rewards (CIP-104) goes live",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Configuration Change",
-    "category": "general"
-  },
-  {
-    "title": "TestNet:  Topology Freeze 9am US Eastern / 1300 UTC",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Protocol Upgrades (LSU)",
-    "category": "general"
-  },
-  {
-    "title": "DevNet LSU to adopt CantonBFT-based synchronizers",
-    "start": "2026-07-21 14:00",
-    "end": "2026-07-21 14:00",
-    "description": "",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Protocol Upgrades (LSU)",
-    "category": "general"
-  },
-  {
-    "title": "DevNet upgrades to Splice 0.6.13",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "TestNet upgrades to Splice 0.6.12",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "MainNet upgrades to Splice 0.6.11",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "DevNet Minimum Splice Versions for Validators",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "DevNet 0.6.11",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
-    "title": "TestNet Minimum Splice Versions for Validators",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "TestNet 0.6.11",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
-    "title": "MainNet Minimum Splice Versions for Validators",
-    "start": "2026-07-21",
-    "end": "2026-07-21",
-    "description": "MainNet 0.6.9",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
     "title": "TestNet: LSU to adopt CantonBFT-based synchronizers",
     "start": "2026-07-22 14:00",
     "end": "2026-07-22 14:00",
@@ -1416,6 +1326,96 @@
     "description": "MainNet: 0.6.7",
     "status": "Approved",
     "network": "MainNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "DevNet LSU to adopt CantonBFT-based synchronizers",
+    "start": "2026-07-21 14:00",
+    "end": "2026-07-21 14:00",
+    "description": "",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Protocol Upgrades (LSU)",
+    "category": "general"
+  },
+  {
+    "title": "TestNet upgrades to Splice 0.6.12",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "DevNet upgrades to Splice 0.6.13",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "TestNet: Traffic-based app rewards (CIP-104) goes live",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Configuration Change",
+    "category": "general"
+  },
+  {
+    "title": "DevNet Minimum Splice Versions for Validators",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "DevNet 0.6.11",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "MainNet upgrades to Splice 0.6.11",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "TestNet:  Topology Freeze 9am US Eastern / 1300 UTC",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Protocol Upgrades (LSU)",
+    "category": "general"
+  },
+  {
+    "title": "MainNet Minimum Splice Versions for Validators",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "MainNet 0.6.9",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "TestNet Minimum Splice Versions for Validators",
+    "start": "2026-07-21",
+    "end": "2026-07-21",
+    "description": "TestNet 0.6.11",
+    "status": "Approved",
+    "network": "TestNet",
     "type": "Minimum Splice Versions",
     "category": "general"
   }
