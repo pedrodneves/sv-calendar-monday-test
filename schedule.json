@@ -1,15 +1,5 @@
 [
   {
-    "title": "TestNet: LSU to adopt CantonBFT-based synchronizers",
-    "start": "2026-07-22 14:00",
-    "end": "2026-07-22 14:00",
-    "description": "Topology freeze starts July 21st, 24 hours before LSU",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Protocol Upgrades (LSU)",
-    "category": "general"
-  },
-  {
     "title": "DevNet upgrades to Splice 0.6.14",
     "start": "2026-07-27",
     "end": "2026-07-27",
@@ -1417,6 +1407,16 @@
     "status": "Approved",
     "network": "TestNet",
     "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "TestNet: LSU to adopt CantonBFT-based synchronizers",
+    "start": "2026-07-22 14:00",
+    "end": "2026-07-22 14:00",
+    "description": "Topology freeze starts July 21st, 24 hours before LSU",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   }
 ]
