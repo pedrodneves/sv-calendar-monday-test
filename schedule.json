@@ -56,7 +56,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -136,7 +136,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -196,7 +196,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -266,7 +266,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -276,7 +276,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -286,7 +286,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -306,7 +306,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -316,7 +316,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -326,7 +326,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -336,7 +336,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -386,7 +386,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -396,7 +396,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -406,7 +406,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -456,7 +456,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -466,7 +466,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -476,7 +476,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -486,7 +486,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -496,7 +496,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -546,7 +546,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -556,7 +556,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -626,7 +626,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -636,7 +636,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -646,7 +646,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -656,7 +656,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -666,7 +666,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -716,7 +716,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -726,7 +726,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -736,7 +736,7 @@
     "description": "",
     "status": "Approved",
     "network": "N/A",
-    "type": "",
+    "type": "Cut Splice Release",
     "category": "general"
   },
   {
@@ -746,7 +746,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -756,7 +756,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -766,7 +766,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -776,7 +776,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -786,7 +786,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Validator Upgrades to Splice",
     "category": "general"
   },
   {
@@ -806,7 +806,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Protocol Upgrades (LSU)",
     "category": "general"
   },
   {
@@ -816,7 +816,7 @@
     "description": "DevNet: 0.6.7\nTestNet: 0.6.5\nMainNet: 0.6.5",
     "status": "Approved",
     "network": "",
-    "type": "",
+    "type": "Minimum Splice Versions",
     "category": "general"
   },
   {
@@ -826,7 +826,7 @@
     "description": "",
     "status": "Approved",
     "network": "MainNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -836,7 +836,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -846,7 +846,7 @@
     "description": "",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Weekly Upgrades",
     "category": "general"
   },
   {
@@ -856,7 +856,7 @@
     "description": "required for CIP-104",
     "status": "Approved",
     "network": "DevNet",
-    "type": "",
+    "type": "Daml Models",
     "category": "general"
   },
   {
@@ -866,7 +866,7 @@
     "description": "",
     "status": "Approved",
     "network": "TestNet",
-    "type": "",
+    "type": "Topology Freeze",
     "category": "general"
   },
   {
@@ -876,7 +876,7 @@
     "description": "Splice .dars: \nDevNet: \namulet 0.1.19\namuletNameService 0.1.20\ndsoGovernance 0.1.25\nvalidatorLifecycle 0.1.7\nwallet 0.1.20\nwalletPayments 0.1.19\n\nTestNet: \namulet 0.1.18\namuletNameService 0.1.19\ndsoGovernance 0.1.24\nvalidatorLifecycle 0.1.7\nwallet 0.1.19\nwalletPayments 0.1.18\n\nMainNet:\namulet 0.1.18\namuletNameService 0.1.19\ndsoGovernance 0.1.24\nvalidatorLifecycle 0.1.7\nwallet 0.1.19\nwalletPayments 0.1.18",
     "status": "Approved",
     "network": "",
-    "type": "",
+    "type": "Minimum Splice Dar versions",
     "category": "general"
   },
   {
