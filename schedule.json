@@ -720,6 +720,96 @@
     "category": "general"
   },
   {
+    "title": "Cut splice release 0.7.0",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "N/A",
+    "type": "Cut Splice Release",
+    "category": "general"
+  },
+  {
+    "title": "DevNet Minimum Splice Versions for Validators",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "DevNet 0.6.11",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "MainNet: Daml models from Splice 0.6.11 effective (required for CIP-112)",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Splice Daml Model Effectivity",
+    "category": "general"
+  },
+  {
+    "title": "DevNet upgrades to Splice 0.6.14",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "DevNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "MainNet: Traffic-based app rewards (CIP-104) go live",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Configuration Change",
+    "category": "general"
+  },
+  {
+    "title": "MainNet upgrades to Splice 0.6.12",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "TestNet upgrades to Splice 0.6.13",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Weekly Upgrades",
+    "category": "general"
+  },
+  {
+    "title": "MainNet Minimum Splice Versions for Validators",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "MainNet 0.6.11",
+    "status": "Approved",
+    "network": "MainNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
+    "title": "TestNet Minimum Splice Versions for Validators",
+    "start": "2026-07-28",
+    "end": "2026-07-28",
+    "description": "TestNet 0.6.11",
+    "status": "Approved",
+    "network": "TestNet",
+    "type": "Minimum Splice Versions",
+    "category": "general"
+  },
+  {
     "title": "TestNet - Minimum Splice Versions for Validators",
     "start": "2026-07-27",
     "end": "2026-07-27",
@@ -1327,96 +1417,6 @@
     "status": "Approved",
     "network": "DevNet",
     "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "Cut splice release 0.7.0",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "N/A",
-    "type": "Cut Splice Release",
-    "category": "general"
-  },
-  {
-    "title": "DevNet Minimum Splice Versions for Validators",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "DevNet 0.6.11",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
-    "title": "DevNet upgrades to Splice 0.6.14",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "DevNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "MainNet: Daml models from Splice 0.6.11 effective (required for CIP-112)",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Splice Daml Model Effectivity",
-    "category": "general"
-  },
-  {
-    "title": "MainNet: Traffic-based app rewards (CIP-104) go live",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Configuration Change",
-    "category": "general"
-  },
-  {
-    "title": "MainNet upgrades to Splice 0.6.12",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "TestNet upgrades to Splice 0.6.13",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Weekly Upgrades",
-    "category": "general"
-  },
-  {
-    "title": "MainNet Minimum Splice Versions for Validators",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "MainNet 0.6.11",
-    "status": "Approved",
-    "network": "MainNet",
-    "type": "Minimum Splice Versions",
-    "category": "general"
-  },
-  {
-    "title": "TestNet Minimum Splice Versions for Validators",
-    "start": "2026-07-28",
-    "end": "2026-07-28",
-    "description": "TestNet 0.6.11",
-    "status": "Approved",
-    "network": "TestNet",
-    "type": "Minimum Splice Versions",
     "category": "general"
   }
 ]
